@@ -9,7 +9,11 @@ declare global {
     }
 }
 
-export function useStoryblok(originalStory: any, preview: boolean) {
+export default function useStoryblok(
+    originalStory: any,
+    preview: boolean,
+    locale = null
+) {
     let [story, setStory] = useState(originalStory);
 
     // adds the events for updating the visual editor
@@ -18,7 +22,9 @@ export function useStoryblok(originalStory: any, preview: boolean) {
         const { StoryblokBridge } = window;
         if (typeof StoryblokBridge !== 'undefined') {
             // initialize the bridge with your token
-            const storyblokInstance = new StoryblokBridge();
+            const storyblokInstance = new StoryblokBridge({
+                language: locale,
+            });
 
             // reload on Next.js page on save or publish event in the Visual Editor
             storyblokInstance.on(['change', 'published'], () =>
@@ -37,7 +43,9 @@ export function useStoryblok(originalStory: any, preview: boolean) {
             storyblokInstance.on('enterEditmode', async (event: any) => {
                 // loading the draft version on initial enter of editor
                 try {
-                    const { data } = await ClientStory.get(event.storyId);
+                    const { data } = await ClientStory.get(event.storyId, {
+                        language: locale,
+                    });
 
                     if (data.story) {
                         setStory(data.story);

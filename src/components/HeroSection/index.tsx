@@ -4,10 +4,10 @@ export interface HeroSectionProps {
     title: string;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = () => {
+const HeroSection: React.FC<HeroSectionProps> = ({ title }) => {
     return (
         <div className="bg-black">
-            <h1 className="text-white">hello</h1>
+            <h1 className="text-white">{title}</h1>
         </div>
     );
 };

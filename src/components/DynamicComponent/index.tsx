@@ -1,7 +1,10 @@
-import React from 'react';
 import type { StoryblokComponent } from 'storyblok-js-client';
 
-const Components: { [key: string]: React.ElementType } = {};
+import HeroSection from '../HeroSection';
+
+const Components: { [key: string]: React.ElementType } = {
+    HeroSection: HeroSection,
+};
 
 interface DynamicComponentProps {
     blok: StoryblokComponent<string>;
@@ -12,7 +15,7 @@ const DynamicComponent = ({ blok }: DynamicComponentProps) => {
     if (typeof Components[blok.component] !== 'undefined') {
         const Component = Components[blok.component];
 
-        return <Component blok={blok} key={blok._uid} />;
+        return <Component {...blok} key={blok._uid} />;
     }
 
     return (

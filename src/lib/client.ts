@@ -13,7 +13,7 @@ class Client {
     get = async (
         slug: string,
         params: Object = this.params,
-        preview: boolean = false
+        preview: boolean = this.preview
     ): Promise<StoryblokResult> => {
         try {
             if (preview) {
@@ -25,8 +25,8 @@ class Client {
             }
 
             let { data, perPage, total, headers } = await Storyblok.get(
-                `cdn/stories/${slug}`,
-                params
+                `cdn/${slug}`,
+                this.params
             );
 
             return {
@@ -36,12 +36,15 @@ class Client {
                 headers,
             };
         } catch (error) {
-            console.log(error);
+            console.error(error);
             return {} as StoryblokResult;
         }
     };
 }
 
-const ClientStory = new Client({}, Boolean(process.env.NEXT_STORYBLOK_PREIEW));
+const ClientStory = new Client(
+    {},
+    Boolean(process.env.NEXT_PUBLIC_STORYBLOK_PREVIEW)
+);
 
 export default ClientStory;
