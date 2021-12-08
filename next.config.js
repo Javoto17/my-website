@@ -6,4 +6,7 @@ module.exports = {
         defaultLocale: 'es',
     },
     trailingSlash: true,
+    typescript: {
+        ignoreBuildErrors: true,
+    },
 };
