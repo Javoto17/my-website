@@ -30,8 +30,6 @@ export async function getStaticProps({
     locale = null,
     locales = [],
 }) {
-    console.log(preview);
-    // home is the default slug for the homepage in Storyblok
     let slug = 'home';
 
     let { data } = await ClientStory.get(
