@@ -16,7 +16,9 @@ class Client {
         preview: boolean = this.preview
     ): Promise<StoryblokResult> => {
         try {
-            if (preview) {
+            let previewMode = this.preview || preview;
+
+            if (previewMode) {
                 this.params = {
                     ...params,
                     version: 'draft',
@@ -36,7 +38,7 @@ class Client {
                 headers,
             };
         } catch (error) {
-            console.error(error);
+            // console.error(error);
             return {} as StoryblokResult;
         }
     };
@@ -44,7 +46,7 @@ class Client {
 
 const ClientStory = new Client(
     {},
-    Boolean(process.env.NEXT_PUBLIC_STORYBLOK_PREVIEW)
+    process.env.NEXT_PUBLIC_STORYBLOK_PREVIEW === '1'
 );
 
 export default ClientStory;

@@ -6,8 +6,6 @@ export default async function preview(
 ) {
     const { slug = '' } = req.query;
 
-    console.log(req);
-
     // get the storyblok params for the bridge to work
     const params = req?.url?.split('?');
     // Check the secret and next parameters
@@ -31,12 +29,6 @@ export default async function preview(
         );
     }
 
-    if (req?.query._storyblok_lang !== 'default') {
-        params?.push(`&locale=${req?.query._storyblok_lang}`);
-    }
-
-    console.log(`/${slug}?${params?.[1]}${params?.[2] ?? ''}`);
-
     // Redirect to the path from entry
-    res.redirect(`/${slug}?${params?.[1]}${params?.[2] ?? ''}`);
+    res.redirect(`${slug}?${params?.[1]}`);
 }

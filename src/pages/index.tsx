@@ -7,7 +7,6 @@ import ClientStory from '../lib/client';
 import Page from '../components/Page';
 
 const Home: NextPage = ({ story, preview, locale }) => {
-    console.log(locale);
     story = useStoryblok(story, preview, locale);
 
     return (
@@ -31,9 +30,7 @@ export async function getStaticProps({
     locale = null,
     locales = [],
 }) {
-    console.log(locale);
-
-    console.log('boom', locale);
+    console.log(preview);
     // home is the default slug for the homepage in Storyblok
     let slug = 'home';
 

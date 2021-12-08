@@ -10,7 +10,6 @@ import ClientStory from '../lib/client';
 import useStoryblok from '../hooks/useStoryblok';
 
 const DynamicPage: NextPage = ({ story, preview = false, locale }) => {
-    console.log('this', locale);
     // we only initialize the visual editor if we're in preview mode
     story = useStoryblok(story, preview, locale);
 
