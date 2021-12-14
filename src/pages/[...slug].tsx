@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
+import type { PageContext } from '../models/context';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 import type { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
 
 import Page from '../components/Page';
@@ -9,8 +9,11 @@ import ClientStory from '../lib/client';
 
 import useStoryblok from '../hooks/useStoryblok';
 
-const DynamicPage: NextPage = ({ story, preview = false, locale }) => {
-    // we only initialize the visual editor if we're in preview mode
+const DynamicPage: NextPage<PageContext> = ({
+    story,
+    preview = false,
+    locale,
+}) => {
     story = useStoryblok(story, preview, locale);
 
     return (
@@ -30,12 +33,16 @@ const DynamicPage: NextPage = ({ story, preview = false, locale }) => {
 };
 
 export const getStaticProps: GetStaticProps = async ({
-    slug = '',
+    params,
     preview = false,
     locales = [],
-    locale = null,
+    locale,
 }) => {
-    let path = slug ? slug.join('/') : 'home';
+    const mySlug = params?.slug ?? 'home';
+
+    let path = Array.isArray(mySlug) ? mySlug.join('/') : 'home';
+
+    console.log('path', path);
 
     let { data } = await ClientStory.get(
         `stories/${path}`,
@@ -57,31 +64,47 @@ export const getStaticProps: GetStaticProps = async ({
 
 export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => {
     // get all links from Storyblok
-    let { data } = await ClientStory.get('links/');
+    let data =
+        (await ClientStory.getAll('stories', {
+            filter_query: {
+                component: {
+                    in: 'page',
+                },
+            },
+        })) ?? [];
 
     let paths: any[] = [];
 
-    Object.keys(data.links).forEach((linkKey) => {
-        if (
-            data.links[linkKey].is_folder ||
-            data.links[linkKey].slug === 'home'
-        ) {
+    data.forEach((page) => {
+        if (!page || page?.slug === 'home') {
             return;
         }
 
         // get array for slug because of catch all
-        const slug = data.links[linkKey].slug;
-        let splittedSlug = slug.split('/');
-        if (slug === 'home') splittedSlug = false;
 
-        // create additional languages
-        for (const locale of locales) {
-            paths.push({ params: { slug: splittedSlug }, locale });
-        }
+        let pathsTranslated =
+            page?.translated_slugs?.filter(
+                (slug) => locales.indexOf(slug?.path) !== 1
+            ) ?? [];
+
+        pathsTranslated.push({
+            path: page.full_slug,
+            lang: page.lang,
+            name: page.slug,
+        });
+
+        // // create additional languages
+        paths = [
+            ...paths,
+            ...pathsTranslated.map(({ path, lang }) => ({
+                params: { slug: path.split('/') },
+                locale: lang,
+            })),
+        ];
     });
 
     return {
-        paths: paths,
+        paths,
         fallback: false,
     };
 };

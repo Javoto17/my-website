@@ -12,7 +12,7 @@ declare global {
 export default function useStoryblok(
     originalStory: any,
     preview: boolean,
-    locale = null
+    locale?: string
 ) {
     let [story, setStory] = useState(originalStory);
 
@@ -46,7 +46,6 @@ export default function useStoryblok(
                     const { data } = await ClientStory.get(event.storyId, {
                         language: locale,
                     });
-
                     if (data.story) {
                         setStory(data.story);
                     }

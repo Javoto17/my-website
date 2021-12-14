@@ -1,8 +1,13 @@
 import Storyblok from './storyblok';
-import type { StoryblokResult } from 'storyblok-js-client';
+import type {
+    StoriesParams,
+    Stories,
+    StoryData,
+    StoryblokResult,
+} from 'storyblok-js-client';
 
 class Client {
-    params: Object = {};
+    params: StoriesParams = {};
     preview: boolean = false;
 
     constructor(params: Object, preview: boolean) {
@@ -12,11 +17,11 @@ class Client {
 
     get = async (
         slug: string,
-        params: Object = this.params,
+        params: StoriesParams = this.params,
         preview: boolean = this.preview
     ): Promise<StoryblokResult> => {
         try {
-            let previewMode = this.preview || preview;
+            const previewMode = this.preview || preview;
 
             if (previewMode) {
                 this.params = {
@@ -26,10 +31,9 @@ class Client {
                 };
             }
 
-            let { data, perPage, total, headers } = await Storyblok.get(
-                `cdn/${slug}`,
-                this.params
-            );
+            const res = await Storyblok.get(`cdn/${slug}`, this.params);
+
+            const { data, perPage, total, headers } = res;
 
             return {
                 data,
@@ -38,8 +42,33 @@ class Client {
                 headers,
             };
         } catch (error) {
-            // console.error(error);
-            return {} as StoryblokResult;
+            console.error(error);
+            return {} as Stories;
+        }
+    };
+
+    getAll = async (
+        path: string,
+        params: StoriesParams = this.params,
+        preview: boolean = this.preview
+    ): Promise<StoryData[] | undefined> => {
+        try {
+            const previewMode = this.preview || preview;
+
+            if (previewMode) {
+                this.params = {
+                    ...params,
+                    version: 'draft',
+                    cv: Date.now(),
+                };
+            }
+
+            const res = await Storyblok.getAll(`cdn/${path}`, this.params);
+
+            return res;
+        } catch (error) {
+            console.error(error);
+            return [];
         }
     };
 }

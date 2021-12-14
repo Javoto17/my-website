@@ -4,7 +4,7 @@ export default async function preview(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    const { slug = '' } = req.query;
+    const slug = req?.query?.slug === '' ? '/' : `/${req.query.slug}` ?? '/';
 
     // get the storyblok params for the bridge to work
     const params = req?.url?.split('?');
@@ -29,6 +29,5 @@ export default async function preview(
         );
     }
 
-    // Redirect to the path from entry
     res.redirect(`${slug}?${params?.[1]}`);
 }

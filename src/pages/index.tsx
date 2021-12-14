@@ -4,9 +4,11 @@ import Image from 'next/image';
 import useStoryblok from '../hooks/useStoryblok';
 import ClientStory from '../lib/client';
 
+import type { PageContext } from '../models/context';
+
 import Page from '../components/Page';
 
-const Home: NextPage = ({ story, preview, locale }) => {
+const Home: NextPage<PageContext> = ({ story, preview, locale }) => {
     story = useStoryblok(story, preview, locale);
 
     return (

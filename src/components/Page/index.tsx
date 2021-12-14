@@ -8,14 +8,16 @@ interface PageProps {
     };
 }
 
-const Page = ({ blok }: PageProps) => (
-    <main>
-        {blok.body
-            ? blok.body.map((blok) => (
-                  <DynamicComponent blok={blok} key={blok._uid} />
-              ))
-            : null}
-    </main>
-);
+const Page = ({ blok }: PageProps) => {
+    return (
+        <main>
+            {blok?.body
+                ? blok.body.map((blok) => (
+                      <DynamicComponent blok={blok} key={blok._uid} />
+                  ))
+                : null}
+        </main>
+    );
+};
 
 export default Page;
