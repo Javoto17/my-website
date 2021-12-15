@@ -32,6 +32,7 @@ class Client {
             }
 
             const res = await Storyblok.get(`cdn/${slug}`, this.params);
+            console.log(res);
 
             const { data, perPage, total, headers } = res;
 
@@ -42,7 +43,7 @@ class Client {
                 headers,
             };
         } catch (error) {
-            console.error(error);
+            // console.error(error);
             return {} as Stories;
         }
     };
@@ -67,7 +68,7 @@ class Client {
 
             return res;
         } catch (error) {
-            console.error(error);
+            // console.error(error);
             return [];
         }
     };

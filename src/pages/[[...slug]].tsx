@@ -8,6 +8,7 @@ import Page from '../components/Page';
 import ClientStory from '../lib/client';
 
 import useStoryblok from '../hooks/useStoryblok';
+import { getIsHomePage, getPath } from '../utils/paths';
 
 const DynamicPage: NextPage<PageContext> = ({
     story,
@@ -38,11 +39,13 @@ export const getStaticProps: GetStaticProps = async ({
     locales = [],
     locale,
 }) => {
-    const mySlug = params?.slug ?? 'home';
+    const slug = params?.slug
+        ? Array.isArray(params?.slug)
+            ? params.slug
+            : [params.slug]
+        : ['_'];
 
-    let path = Array.isArray(mySlug) ? mySlug.join('/') : 'home';
-
-    console.log('path', path);
+    let path = getIsHomePage(slug) ? '_' : slug.join('/');
 
     let { data } = await ClientStory.get(
         `stories/${path}`,
@@ -76,7 +79,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => {
     let paths: any[] = [];
 
     data.forEach((page) => {
-        if (!page || page?.slug === 'home') {
+        if (!page) {
             return;
         }
 
@@ -93,14 +96,15 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => {
             name: page.slug,
         });
 
-        // // create additional languages
-        paths = [
-            ...paths,
-            ...pathsTranslated.map(({ path, lang }) => ({
-                params: { slug: path.split('/') },
+        pathsTranslated =
+            pathsTranslated.map(({ path, lang }) => ({
+                params: {
+                    slug: getPath(path),
+                },
                 locale: lang,
-            })),
-        ];
+            })) ?? [];
+
+        paths = [...paths, ...pathsTranslated];
     });
 
     return {
