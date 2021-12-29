@@ -5,7 +5,6 @@ import ArrowRight from '../../icons/ArrowRight';
 import styles from './styles.module.css';
 
 export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
-    children: React.ReactNode;
     variant?: 'primary' | 'secondary' | 'outline';
     size?: 'medium' | 'small' | 'large';
     className?: string;

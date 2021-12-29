@@ -15,27 +15,40 @@
 
     &.large {
         @apply py-4 px-8 text-base;
+
+        & .arrow {
+            @apply ml-4;
+
+            & svg {
+                height: 1.5rem;
+                width: 1.5rem;
+            }
+        }
     }
 
     &.medium {
         @apply py-2.5 px-5 text-sm;
 
-        & .arrow svg {
-            height: 1.125rem;
-            width: 1.125rem;
+        & .arrow {
+            @apply ml-2;
+
+            & svg {
+                height: 1.125rem;
+                width: 1.125rem;
+            }
         }
     }
 
     &.small {
         @apply py-1.5 px-3 text-xs;
 
-        & .arrow svg {
-            height: 0.875rem;
-            width: 0.875rem;
-        }
-    }
+        & .arrow {
+            @apply ml-1;
 
-    & .arrow {
-        @apply ml-1;
+            & svg {
+                height: 0.875rem;
+                width: 0.875rem;
+            }
+        }
     }
 }

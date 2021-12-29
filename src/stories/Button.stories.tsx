@@ -15,7 +15,7 @@ const defaultParameters = {
 };
 
 export default {
-    title: 'my-website/Button',
+    title: 'my-website/atoms/Button',
     component: Button,
 } as Meta;
 

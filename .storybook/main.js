@@ -1,4 +1,5 @@
 const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
     core: {
@@ -22,6 +23,8 @@ module.exports = {
     ],
     framework: '@storybook/react',
     webpackFinal: (config, { configType }) => {
+        config.resolve.plugins = config.resolve.plugins || [];
+
         const PRODUCTION = configType === 'PRODUCTION';
 
         config.module.rules.find(
@@ -51,6 +54,12 @@ module.exports = {
                 'postcss-loader',
             ],
         });
+
+        config.resolve.plugins.push(
+            new TsconfigPathsPlugin({
+                configFile: path.resolve(__dirname, '../tsconfig.json'),
+            })
+        );
 
         return config;
     },
