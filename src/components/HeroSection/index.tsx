@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../atoms/Button';
 
 export interface HeroSectionProps {
     title: string;
@@ -6,8 +7,8 @@ export interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ title }) => {
     return (
-        <div className="bg-black">
-            <h1 className="text-white">{title}</h1>
+        <div className="bg-slate-50	">
+            <Button>hola</Button>
         </div>
     );
 };

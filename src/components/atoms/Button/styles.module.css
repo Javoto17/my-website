@@ -1,0 +1,41 @@
+.button {
+    @apply rounded-lg text-center font-medium transition-all flex items-center justify-center;
+
+    &.primary {
+        @apply bg-brand-purple-900 text-brand-white hover:bg-brand-purple-800;
+    }
+
+    &.secondary {
+        @apply text-brand-purple-900 bg-brand-purple-800 hover:bg-brand-purple-100;
+    }
+
+    &.outline {
+        @apply border-white border bg-transparent hover:opacity-50 text-white;
+    }
+
+    &.large {
+        @apply py-4 px-8 text-base;
+    }
+
+    &.medium {
+        @apply py-2.5 px-5 text-sm;
+
+        & .arrow svg {
+            height: 1.125rem;
+            width: 1.125rem;
+        }
+    }
+
+    &.small {
+        @apply py-1.5 px-3 text-xs;
+
+        & .arrow svg {
+            height: 0.875rem;
+            width: 0.875rem;
+        }
+    }
+
+    & .arrow {
+        @apply ml-1;
+    }
+}

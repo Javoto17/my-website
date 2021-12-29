@@ -1,5 +1,7 @@
 import '../src/styles/globals.css';
 
+import tailwindConfig from '../tailwind.config';
+
 export const parameters = {
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
@@ -18,6 +20,10 @@ export const parameters = {
             {
                 name: 'dark',
                 value: '#000000',
+            },
+            {
+                name: 'cyan',
+                value: '#a0dcff',
             },
         ],
     },
