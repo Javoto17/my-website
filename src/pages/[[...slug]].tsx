@@ -1,14 +1,16 @@
 import type { NextPage } from 'next';
-import type { PageContext } from '../models/context';
 import Head from 'next/head';
 import type { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
 
-import Page from '../components/Page';
+import Page from '@components/Page';
 
-import ClientStory from '../lib/client';
+import ClientStory from '@lib/client';
 
-import useStoryblok from '../hooks/useStoryblok';
-import { getIsHomePage, getPath } from '../utils/paths';
+import useStoryblok from '@hooks/useStoryblok';
+
+import type { PageContext } from '@models/context';
+
+import { getIsHomePage, getPath } from '@utils/paths';
 
 const DynamicPage: NextPage<PageContext> = ({
     story,
@@ -84,7 +86,6 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => {
         }
 
         // get array for slug because of catch all
-
         let pathsTranslated =
             page?.translated_slugs?.filter(
                 (slug) => locales.indexOf(slug?.path) !== 1
@@ -96,7 +97,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => {
             name: page.slug,
         });
 
-        pathsTranslated =
+        const pathsWithSlug =
             pathsTranslated.map(({ path, lang }) => ({
                 params: {
                     slug: getPath(path),
@@ -104,7 +105,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => {
                 locale: lang,
             })) ?? [];
 
-        paths = [...paths, ...pathsTranslated];
+        paths = [...paths, ...pathsWithSlug];
     });
 
     return {
