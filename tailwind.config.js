@@ -1,11 +1,95 @@
 module.exports = {
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
-  theme: {
-    extend: {},
-  },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
-}
+    content: [
+        './src/pages/**/*.{js,ts,jsx,tsx}',
+        './src/components/**/*.{js,ts,jsx,tsx}',
+        './src/stories/**/*.{js,ts,jsx,tsx}',
+    ],
+    plugins: [],
+    theme: {
+        extend: {
+            fontSize: {
+                xs: '0.75rem',
+                sm: '0.875rem',
+                base: '1rem',
+                lg: '1.125rem',
+                xl: '1.25rem',
+                '2xl': '1.5rem',
+                '3xl': '1.75rem',
+                '4xl': '2.5rem',
+                '5xl': '3rem',
+                '6xl': '4.5rem',
+            },
+            fontFamily: { inter: 'Inter', 'nanum-pen': 'Nanum Pen' },
+            borderRadius: {
+                none: '0',
+                xs: '0.03125rem',
+                sm: '0.25rem',
+                default: '0.3125rem',
+                lg: '0.375rem',
+                xl: '0.5rem',
+                '2xl': '0.625rem',
+                '3xl': '0.75rem',
+                '4xl': '1rem',
+                full: '9999px',
+            },
+            boxShadow: {
+                navbar: '0px 1px 0px 0px rgba(229,233,242,1)',
+                mobile: '10px 15px 30px 0px rgba(41,41,42,0.5)',
+                grey: '0px 30px 40px 0px rgba(212,217,232,0.2)',
+                dark: '0px 10px 20px 0px rgba(41,41,42,0.07)',
+                'dark-2': '-2px 4px 45px 0px rgba(0,0,0,0.13)',
+                'header-image': '48px 24px 48px 0px rgba(24,37,56,0.12)',
+                'web-preview-mockup': '50px 0px 70px 0px rgba(0,0,0,0.1)',
+            },
+            colors: {
+                transparent: 'transparent',
+                black: '#000000',
+                white: '#ffffff',
+                brand: {
+                    white: '#ffffff',
+                    black: '#0b0d17',
+                    purple: {
+                        900: '#8c30f5',
+                        800: '#d6b1ff',
+                        100: '#f1e4ff',
+                    },
+                    turquoise: {
+                        900: '#2ec5ce',
+                        800: '#75e3ea',
+                        100: '#d5fafc',
+                    },
+                    orange: {
+                        900: '#fe9a22',
+                        800: '#ffc278',
+                        100: '#ffe3c1',
+                    },
+                    pink: {
+                        900: '#f22bb2',
+                        800: '#ff72d2',
+                        100: '#ffb1e6',
+                    },
+                },
+                text: {
+                    gray: {
+                        900: '#18191f',
+                        800: '#474a57',
+                        700: '#969bab',
+                        300: '#d9dbe1',
+                        200: '#eeeff4',
+                        100: '#f4f5f7',
+                    },
+                },
+                accent: {
+                    pastel: {
+                        green: '#c1e5c0',
+                        blue: '#c0dae5',
+                    },
+                    peach: '#f39f9f',
+                    'light-peach': '#fdd9d9',
+                    'cotton-candy': '#ffc3d8',
+                    cyan: '#a0dcff',
+                },
+            },
+        },
+    },
+};
