@@ -37,6 +37,7 @@
         "css-loader": "^6.5.1",
         "eslint": "7",
         "eslint-config-next": "12.0.7",
+        "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-storybook": "^0.5.5",
         "husky": ">=6",
