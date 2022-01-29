@@ -1,6 +1,6 @@
 import type { StoryblokComponent } from 'storyblok-js-client';
 
-import HeroSection from '../organisms/HeroSection';
+import HeroSection from '../../organisms/HeroSection';
 
 const Components: { [key: string]: React.ElementType } = {
     HeroSection: HeroSection,

@@ -1,6 +1,6 @@
 import type { StoryblokComponent } from 'storyblok-js-client';
 
-import DynamicComponent from '../DynamicComponent';
+import DynamicComponent from './DynamicComponent';
 
 interface PageProps {
     blok: StoryblokComponent<string> & {
